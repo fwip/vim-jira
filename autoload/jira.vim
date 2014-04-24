@@ -9,13 +9,13 @@
 " Prompt user if we need info
 function! jira#GetCredentials()
   if !exists('g:jira_vim_url')
-    let g:jira_vim_url = input("JIRA url?")
+    let g:jira_vim_url = input("JIRA url? ")
   endif
   if !exists('g:jira_vim_user')
-    let g:jira_vim_user = input("JIRA user?")
+    let g:jira_vim_user = input("JIRA user? ")
   endif
   if !exists('g:jira_vim_pass')
-    let g:jira_vim_pass = inputsecret("JIRA password?")
+    let g:jira_vim_pass = inputsecret("JIRA password? ")
   endif
 endfunction
 
