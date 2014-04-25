@@ -32,12 +32,13 @@ function! jira#GetIssue(id)
   return g:jira_current_issue
 endfunction
 
-function! jira#PushIssue(issue)
+function! jira#PushDescription(id, description)
   call jira#GetCredentials()
   let url = g:vim_jira_url . 'issue/' . a:id
-  let cmd = 'curl '. url .' -s -k -u '. g:vim_jira_user .':'. g:vim_jira_pass . '-d' . issue
-  echo cmd
-
+  let data = json_encoding#Encode({"fields": {"description": a:description }})
+  let cmd = 'curl -X PUT '. url ." -d '". data ."'" . ' -H "Content-Type: application/json" -s -k -u '. g:vim_jira_user .':'. g:vim_jira_pass 
+  " TODO: Error handling
+  let result = system(cmd)
 endfunction
 
 function! jira#UpdateIssue(tmpfile)
