@@ -35,7 +35,7 @@ endfunction
 
 function! jira#PostDescription(id, description)
   call jira#GetCredentials()
-  let url = g:vim_jira_url . 'issue/' . a:id
+  let url = g:vim_jira_rest_url . 'issue/' . a:id
   let data = json_encoding#Encode({"fields": {"description": a:description }})
   " Wow, this took way too long to figure out.
   " Un-encode newlines so Jira accepts it.
