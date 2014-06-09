@@ -17,12 +17,13 @@ function! jira#GetCredentials()
   if !exists('g:vim_jira_pass')
     let g:vim_jira_pass = inputsecret("JIRA password? ")
   endif
+  let g:vim_jira_rest_url = g:vim_jira_url . '/rest/api/2/'
 endfunction
 
 " Grab issue from the server
 function! jira#GetIssue(id)
   call jira#GetCredentials()
-  let url = g:vim_jira_url . 'issue/' . a:id
+  let url = g:vim_jira_rest_url . 'issue/' . a:id
   let cmd = 'curl '. url .' -s -k -u '. g:vim_jira_user .':'. g:vim_jira_pass
 
   let data_json = system(cmd)
