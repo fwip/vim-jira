@@ -20,7 +20,7 @@ syntax match jiraYes   /(y)/
 syntax match jiraNo    /(n)/
 syntax cluster jiraSymbol contains=jiraOn,jiraOff,jiraCheck,jiraError,jiraWarn,jiraYes,jiraNo
 
-syntax region jiraPanel start="{panel:" end="{panel}" transparent fold contains=ALL
+syntax region jiraPanel start="{panel:" end="{panel}" fold contains=ALL keepend
 syntax region jiraPanelTitle matchgroup=hide start="{panel:\(title=\)*" end="|.*}" contained 
 syntax match jiraPanelEnd /{panel}/ contained
 
