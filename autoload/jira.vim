@@ -36,20 +36,22 @@ endfunction
 function! jira#PostDescription(id, description)
   call jira#GetCredentials()
   let url = g:vim_jira_rest_url . 'issue/' . a:id
+  let tmpfile = '/tmp/tmpjirafile-' . a:id
+
   let data = json_encoding#Encode({"fields": {"description": a:description }})
   " Wow, this took way too long to figure out.
   " Un-encode newlines so Jira accepts it.
   let datafix = substitute(data, '\\\\n', '\\n', 'g')
-  let cmd = 'curl -X PUT '. url ." -d '". datafix ."'" . ' -H "Content-Type: application/json" -s -k -u '. g:vim_jira_user .':'. g:vim_jira_pass 
-
+  call writefile([datafix], tmpfile)
+  let cmd = 'curl -X PUT '. url .' --data @'. tmpfile .' -H "Content-Type: application/json" -s -k -u '. g:vim_jira_user .':'. g:vim_jira_pass 
   " TODO: Error handling
   let result = system(cmd)
-  echom result
 endfunction
 
 function! jira#PostBuffer()
   let newdesc = join(getline(1,'$'), '\n')
   call jira#PostDescription(b:issue.key, newdesc)
+  set nomodified
 endfunction
 
 " Extract an issue's description as an array of lines
@@ -67,5 +69,6 @@ function! jira#OpenBuffer(id)
   execute 'vsplit ' . tmpfile
   execute 'set ft=jira'
   let b:issue = issue
+  autocmd BufWriteCmd <buffer> call jira#PostBuffer()
 
 endfunction
