@@ -1,10 +1,11 @@
-highlight jiraOn ctermfg=yellow guifg=yellow
-highlight jiraOff ctermfg=darkgrey guifg=darkgrey
-highlight jiraCheck ctermfg=green guifg=green
-highlight jiraError ctermfg=red guifg=red
-highlight jiraWarn ctermfg=202 guifg=#ff5f00
-highlight jiraYes ctermfg=green guifg=green
-highlight jiraNo ctermfg=red guifg=red
+highlight jiraMarkOn ctermfg=yellow guifg=yellow
+highlight jiraMarkOff ctermfg=darkgrey guifg=darkgrey
+highlight jiraMarkCheck ctermfg=green guifg=green
+highlight jiraMarkError ctermfg=red guifg=red
+highlight jiraMarkWarn ctermfg=202 guifg=#ff5f00
+highlight jiraMarkYes ctermfg=green guifg=green
+highlight jiraMarkNo ctermfg=red guifg=red
+highlight jiraMarkInfo ctermfg=blue guifg=blue
 
 highlight link jiraPanelTitle Title
 highlight hide guifg=darkgrey ctermfg=darkgrey
@@ -14,14 +15,15 @@ highlight jiraItalic gui=italic cterm=underline
 
 " TODO: Figure out how to make conceal chars the correct color
 "
-syntax match jiraOn    /(on)/  " conceal cchar=⚙
-syntax match jiraOff   /(off)/ " conceal cchar=⚪
-syntax match jiraCheck /(\/)/  " conceal cchar=✔
-syntax match jiraError /(x)/
-syntax match jiraWarn  /(!)/   " conceal cchar=!
-syntax match jiraYes   /(y)/
-syntax match jiraNo    /(n)/
-syntax cluster jiraSymbol contains=jiraOn,jiraOff,jiraCheck,jiraError,jiraWarn,jiraYes,jiraNo
+syntax match jiraMarkOn    /(on)/  " conceal cchar=⚙
+syntax match jiraMarkOff   /(off)/ " conceal cchar=⚪
+syntax match jiraMarkCheck /(\/)/  " conceal cchar=✔
+syntax match jiraMarkError /(x)/
+syntax match jiraMarkWarn  /(!)/   " conceal cchar=!
+syntax match jiraMarkYes   /(y)/
+syntax match jiraMarkNo    /(n)/
+syntax match jiraMarkInfo  /(?)/
+syntax cluster jiraMark contains=jiraMarkOn,jiraMarkOff,jiraMarkCheck,jiraMarkError,jiraMarkWarn,jiraMarkYes,jiraMarkNo
 
 syntax match jiraItalic /_[^_]\+_/ excludenl contains=ALL
 syntax match jiraBold /\*[^*]\+\*/ excludenl contains=ALL
