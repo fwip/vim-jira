@@ -11,4 +11,4 @@ if &cp || (exists('g:loaded_jira_vim') && g:loaded_jira_vim)
 endif
 let g:loaded_jira_vim = 1
 
-
+command JiraBrowse call jira#Browse()

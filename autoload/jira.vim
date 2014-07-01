@@ -76,6 +76,11 @@ function! jira#CycleStatusIndicator()
   endfor
 
 endfunction
+
+function! jira#Browse()
+  call jira#GetCredentials()
+endfunction
+
 " Open up a new split with the given issue
 function! jira#OpenBuffer(id)
   let issue = jira#GetIssue(a:id)
