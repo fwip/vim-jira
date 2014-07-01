@@ -60,6 +60,22 @@ function! jira#GetDesc(issue)
   return split(a:issue.fields.description, '\r\n\|[\r\n]')
 endfunction
 
+function! jira#CycleStatusIndicator()
+  if (! exists('g:jira_status_icons'))
+    let g:jira_status_icons = ['(off)', '(on)', '(/)', '(!)', '(?)', '(n)', '(y)']
+  endif
+
+  let word = expand('<cWORD>')
+  let index = 0
+  for i in g:jira_status_icons
+    let index += 1
+    if (i == word)
+      let next_word = g:jira_status_icons[ index - len(g:jira_status_icons) ]
+      execute 'normal! ciW' . next_word
+    endif
+  endfor
+
+endfunction
 " Open up a new split with the given issue
 function! jira#OpenBuffer(id)
   let issue = jira#GetIssue(a:id)
